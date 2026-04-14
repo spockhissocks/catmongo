@@ -1,0 +1,123 @@
+openapi: 3.0.3
+info:
+  title: Cat API
+  version: 1.0.0
+  description: Simple CRUD API for managing cats stored in MongoDB
+
+servers:
+  - url: http://localhost:5000
+
+paths:
+  /cats:
+    get:
+      summary: Get all cats
+      operationId: getCats
+      responses:
+        '200':
+          description: List of cats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cat'
+
+    post:
+      summary: Create a new cat
+      operationId: createCat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cat'
+      responses:
+        '201':
+          description: Cat created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cat'
+
+  /cats/{id}:
+    get:
+      summary: Get a cat by ID
+      operationId: getCatById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cat found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cat'
+        '404':
+          description: Cat not found
+
+    put:
+      summary: Update a cat
+      operationId: updateCat
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cat'
+      responses:
+        '200':
+          description: Cat updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cat'
+        '404':
+          description: Cat not found
+
+    delete:
+      summary: Delete a cat
+      operationId: deleteCat
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Cat deleted
+        '404':
+          description: Cat not found
+
+components:
+  schemas:
+    Cat:
+      type: object
+      required:
+        - id
+        - name
+        - age
+        - breed
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Whiskers
+        age:
+          type: integer
+          example: 3
+        breed:
+          type: string
+          example: Siamese
