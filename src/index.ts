@@ -53,6 +53,7 @@ interface Cat {
   breed: string;
   color?: string;
   indoor?: boolean;
+  address?: { postalCode: string; country: string;}
 }
 
 async function start() {

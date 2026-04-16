@@ -163,6 +163,8 @@ components:
           type: boolean
           description: Whether the cat lives indoors
           example: true
+        address:
+          $ref: "#/components/schemas/Address"
       additionalProperties: false
 
     CatInput:
@@ -194,6 +196,8 @@ components:
         indoor:
           type: boolean
           example: true
+        address:
+          $ref: "#/components/schemas/Address"
       additionalProperties: false
 
     CatUpdate:
@@ -221,8 +225,22 @@ components:
         indoor:
           type: boolean
           example: true
+        address:
+          $ref: "#/components/schemas/Address"
       additionalProperties: false
-
+    Address:
+      type: object
+      required:
+        - postalCode
+        - country
+      properties:
+        postalCode:
+          type: string
+          example: "8011AB"
+        country:
+          type: string
+          example: "NL"
+      additionalProperties: false
     NotFound:
       type: object
       properties:
