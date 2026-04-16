@@ -59,7 +59,7 @@ async function start() {
   await client.connect();
   console.log("Connected to MongoDB");
 
-  const db = client.db("testdb");
+  const db = client.db("catdb");
   const collection = db.collection<Cat>("cats");
 
   // -------------------------------------------------------------------------
