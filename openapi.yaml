@@ -92,7 +92,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CatInput"
+              $ref: "#/components/schemas/CatUpdate"
             example:
               age: 4
       responses:
@@ -163,6 +163,7 @@ components:
           type: boolean
           description: Whether the cat lives indoors
           example: true
+      additionalProperties: false
 
     CatInput:
       type: object
@@ -193,6 +194,34 @@ components:
         indoor:
           type: boolean
           example: true
+      additionalProperties: false
+
+    CatUpdate:
+      type: object
+      description: Fields to provide when updating a cat (partial update). Do not include _id.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: Whiskers
+        age:
+          type: integer
+          minimum: 0
+          maximum: 30
+          example: 3
+        breed:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: Siamese
+        color:
+          type: string
+          example: cream
+        indoor:
+          type: boolean
+          example: true
+      additionalProperties: false
 
     NotFound:
       type: object

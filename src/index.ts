@@ -33,7 +33,7 @@ app.use(
   OpenApiValidator.middleware({
     apiSpec: SPEC_PATH,
     validateRequests: true,
-    validateResponses: false, // flip to true to catch bugs during development
+    validateResponses: true, // flip to true to catch bugs during development
   })
 );
 
@@ -77,14 +77,14 @@ async function start() {
   // GET /cats — list all cats
   app.get("/cats", async (_req, res) => {
     const cats = await collection.find().toArray();
-    res.json(cats);
+    res.json(cats.map(cat => ({ ...cat, _id: cat._id.toString() })));
   });
 
   // GET /cats/:id — fetch one cat
   app.get("/cats/:id", async (req, res) => {
     const cat = await collection.findOne({ _id: new ObjectId(req.params.id) });
     if (!cat) return res.status(404).json({ message: "Cat not found" });
-    res.json(cat);
+    res.json({ ...cat, _id: cat._id.toString() });
   });
 
   // POST /cats — create a cat; MongoDB generates _id
@@ -102,7 +102,7 @@ async function start() {
     );
 
     if (!result) return res.status(404).json({ message: "Cat not found" });
-    res.json(result);
+    res.json({ ...result, _id: result._id.toString() });
   });
 
   // DELETE /cats/:id
