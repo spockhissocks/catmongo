@@ -6,6 +6,7 @@ Node.js + TypeScript + Express + MongoDB REST API.
 ## System requirements (Ubuntu)
 
 Update system:
+
 ```
 sudo apt update && sudo apt upgrade -y
 ````
@@ -96,6 +97,4 @@ Check Node process:
 ps aux | grep node
 ```
 
-```
-```
 
